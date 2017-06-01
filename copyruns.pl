@@ -10,10 +10,11 @@ while(<FIN1>)
     # ---------------------------------------------------------------------- #
     # --- extra counter to increment runnumber but not file index number --- #
     $kounter = $kounter + 1;
-    next if $kounter < 11;
+    next if $kounter < 51;
     # ---------------------------------------------------------------------- #
 
-    last if $counter > 9;
+    #last if $counter > 9;
+    last if $counter > 4;
 
     $string = "0".$counter;
     if($counter<10)
@@ -49,10 +50,23 @@ while(<FIN1>)
 	
 	#$destination = "TrialRunX9_AOD145/WSUlocaldataX9_LHC11h_AOD145_".$string."-".$stringsegment.".root";
 	$destination = "TrialRunX9_AOD145/WSUlocaldataX9_LHC11h_AOD145_".$runn."-".$stringsegment.".root";
+
+	$segmentnumber = $stringsegment;
+	#temp junk
+	#next if ($counter<7);
+	#next if ($counter==7 && $segmentnumber<72);
 	
-	print "command to be executed is: \nalien_cp $stringfinal \n$destination \n\n";
-	#system("alien_cp $stringfinal $destination");
-	
+	print "command to be executed is: \nalien_cp $stringfinal \n$destination \n";
+	if(-e $destination)
+	{
+	    system("echo File exists, doing nothing \n");
+	}
+	else
+	{
+	    system("echo Now copying file \n");
+	    system("alien_cp $stringfinal $destination");
+	}
+	print "\n";
 	
     }
 
